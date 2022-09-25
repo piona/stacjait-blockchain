@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+    <h2>Dapp</h2>
+
+    <button type="button" onclick="checkCoinbaseBalance()">Check</button>
+
+    <p id="coinbase"></p>
+    <p id="coinbase-balance"></p>
+
+    <script>
+      web3 = new Web3(new Web3.providers.WebsocketProvider('ws://localhost:8546'))
+
+      document.getElementById("coinbase-balance").innerHTML = "Waiting for address...";
+
+      function checkCoinbaseBalance() {
+        web3.eth.getCoinbase().then(
+          (x) => document.getElementById("coinbase").innerHTML = "Coinbase: " + x)
+        web3.eth.getCoinbase().then(web3.eth.getBalance).then(
+          (x) => document.getElementById("coinbase-balance").innerHTML = "Balance (ETH): " + web3.utils.fromWei(x))
+      }
+    </script>
+
+  </body>
+</html>

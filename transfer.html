@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+<h2>Transfer</h2>
+
+<p>From account: </p>
+<input type="text" id="from" value="0x" size="80" />
+
+<p>To account: </p>
+<input type="text" id="to" value="0x" size="80" />
+
+<p>ETH: </p>
+<input type="text" id="value" value="0" size="20" />
+
+<p>Password: </p>
+<input type="password" id="password" size="32" />
+
+<button type="button" onclick="transfer()">Send transfer</button>
+
+<p id="info"></p>
+
+<script>
+if (typeof web3 !== 'undefined') {
+  web3 = new Web3(web3.currentProvider);
+} else {
+  web3 = new Web3(new Web3.providers.WebsocketProvider('ws://localhost:8546'))
+}
+
+if (web3 === 'undefined') {
+  console.log("web3 not initialized");
+} else {
+  console.log("web3 initialized");
+}
+
+function transfer() {
+  var from = document.getElementById("from").value;
+  var to = document.getElementById("to").value;
+  var value = document.getElementById("value").value;
+  var password = document.getElementById("password").value;
+
+  document.getElementById("info").innerHTML = "Sending transfer...";
+
+  web3.eth.personal.unlockAccount(from, password).then(() => {
+    web3.eth.sendTransaction({ from: from, to: to, value: web3.utils.toWei(value, "ether") }).then(() => {
+      document.getElementById("info").innerHTML = "Done";
+    }).catch(error => {
+      document.getElementById("info").innerHTML = "Error: " + error;
+    });
+  }).catch(error => {
+    document.getElementById("info").innerHTML = "Error: " + error;
+  });
+}
+</script>
+
+</body>
+</html>
+
