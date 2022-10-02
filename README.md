@@ -133,6 +133,7 @@ W repozytorium znajdują się przykładowe aplikacje korzystające z [web3.js](h
 
 - [balance](./balance.html) - sprawdzenie salda konta bazowego
 - [transfer](./transfer.html) - przelew środków
+- [token-transfer](./token-transfer.html) - przelew tokenów w kontrakcie
 
 ### Po warsztacie
 
